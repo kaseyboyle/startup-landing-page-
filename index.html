@@ -71,27 +71,28 @@
       margin-bottom: 10px;
     }
 
-    .cta {
+    .cta, .survey {
       text-align: center;
       padding: 50px 20px;
       background: #f1f1f1;
+      margin-top: 40px;
     }
 
-    .cta h2 {
+    .cta h2, .survey h2 {
       font-size: 2rem;
       margin-bottom: 20px;
     }
 
-    .cta input[type="email"] {
+    .cta input[type="email"], .survey input[type="text"], .survey select {
       padding: 12px;
       width: 250px;
       max-width: 90%;
       border: 1px solid #ccc;
       border-radius: 4px;
-      margin-right: 10px;
+      margin: 10px 0;
     }
 
-    .cta button {
+    .cta button, .survey button {
       padding: 12px 20px;
       background: var(--secondary);
       border: none;
@@ -99,6 +100,7 @@
       font-size: 1rem;
       border-radius: 4px;
       cursor: pointer;
+      margin-top: 10px;
     }
 
     footer {
@@ -110,15 +112,23 @@
     }
 
     @media (max-width: 600px) {
-      .cta input[type="email"] {
+      .cta input[type="email"],
+      .survey input[type="text"],
+      .survey select {
         display: block;
-        margin: 0 auto 10px;
+        margin: 10px auto;
       }
 
-      .cta button {
+      .cta button, .survey button {
         display: block;
-        margin: 0 auto;
+        margin: 10px auto;
       }
+    }
+
+    .confirmation {
+      color: green;
+      margin-top: 15px;
+      display: none;
     }
   </style>
 </head>
@@ -149,11 +159,44 @@
   <section class="cta">
     <h2>Be the First to Try Bloodwise</h2>
     <p>Sign up to join our private beta and take charge of your health journey.</p>
-    <form id="signupForm" onsubmit="return handleSubmit(event)">
+    <form id="signupForm" onsubmit="return handleSignup(event)">
       <input type="email" id="email" placeholder="Your email address" required />
       <button type="submit">Join Waitlist</button>
     </form>
-    <p id="confirmation" style="margin-top: 15px; color: green; display: none;">Thanks! We'll be in touch soon.</p>
+    <p class="confirmation" id="signupConfirmation">Thanks! We'll be in touch soon.</p>
+  </section>
+
+  <section class="survey">
+    <h2>We’d Love Your Feedback</h2>
+    <p>Help us design a better product by answering a few quick questions:</p>
+    <form id="surveyForm" onsubmit="return handleSurvey(event)">
+      <label for="confusion">1. Do you find traditional lab reports confusing?</label><br/>
+      <select id="confusion" required>
+        <option value="">--Select--</option>
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+        <option value="sometimes">Sometimes</option>
+      </select><br/><br/>
+
+      <label for="trustAI">2. Would you rely on AI-generated explanations of your health data?</label><br/>
+      <select id="trustAI" required>
+        <option value="">--Select--</option>
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+        <option value="maybe">Maybe</option>
+      </select><br/><br/>
+
+      <label for="visuals">3. Would you find value in visual tools like charts, alerts, or trends over time?</label><br/>
+      <select id="visuals" required>
+        <option value="">--Select--</option>
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+        <option value="maybe">Maybe</option>
+      </select><br/><br/>
+
+      <button type="submit">Submit Feedback</button>
+    </form>
+    <p class="confirmation" id="surveyConfirmation">Thanks for your feedback!</p>
   </section>
 
   <footer>
@@ -161,15 +204,26 @@
   </footer>
 
   <script>
-    function handleSubmit(e) {
+    function handleSignup(e) {
       e.preventDefault();
       const email = document.getElementById('email').value;
       if (email) {
-        // This is where you’d normally send data to a backend
         console.log("Email submitted:", email);
         document.getElementById('signupForm').style.display = 'none';
-        document.getElementById('confirmation').style.display = 'block';
+        document.getElementById('signupConfirmation').style.display = 'block';
       }
+    }
+
+    function handleSurvey(e) {
+      e.preventDefault();
+      const response = {
+        confusion: document.getElementById('confusion').value,
+        trustAI: document.getElementById('trustAI').value,
+        visuals: document.getElementById('visuals').value
+      };
+      console.log("Survey response:", response);
+      document.getElementById('surveyForm').style.display = 'none';
+      document.getElementById('surveyConfirmation').style.display = 'block';
     }
   </script>
 
