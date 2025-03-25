@@ -71,28 +71,28 @@
       margin-bottom: 10px;
     }
 
-    .cta, .survey {
+    .cta {
       text-align: center;
       padding: 50px 20px;
       background: #f1f1f1;
       margin-top: 40px;
     }
 
-    .cta h2, .survey h2 {
+    .cta h2 {
       font-size: 2rem;
       margin-bottom: 20px;
     }
 
-    .cta input[type="email"], .survey input[type="text"], .survey select {
+    .cta input[type="email"] {
       padding: 12px;
       width: 250px;
       max-width: 90%;
       border: 1px solid #ccc;
       border-radius: 4px;
-      margin: 10px 0;
+      margin-right: 10px;
     }
 
-    .cta button, .survey button {
+    .cta button {
       padding: 12px 20px;
       background: var(--secondary);
       border: none;
@@ -100,7 +100,31 @@
       font-size: 1rem;
       border-radius: 4px;
       cursor: pointer;
-      margin-top: 10px;
+    }
+
+    .confirmation {
+      color: green;
+      margin-top: 15px;
+      display: none;
+    }
+
+    .survey {
+      padding: 50px 20px;
+      background: #f9f9f9;
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    .survey h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    iframe {
+      border: none;
+      width: 100%;
+      height: 1000px;
+      max-width: 100%;
     }
 
     footer {
@@ -112,23 +136,19 @@
     }
 
     @media (max-width: 600px) {
-      .cta input[type="email"],
-      .survey input[type="text"],
-      .survey select {
+      .cta input[type="email"] {
         display: block;
-        margin: 10px auto;
+        margin: 0 auto 10px;
       }
 
-      .cta button, .survey button {
+      .cta button {
         display: block;
-        margin: 10px auto;
+        margin: 0 auto;
       }
-    }
 
-    .confirmation {
-      color: green;
-      margin-top: 15px;
-      display: none;
+      iframe {
+        height: 1200px;
+      }
     }
   </style>
 </head>
@@ -168,35 +188,8 @@
 
   <section class="survey">
     <h2>We’d Love Your Feedback</h2>
-    <p>Help us design a better product by answering a few quick questions:</p>
-    <form id="surveyForm" onsubmit="return handleSurvey(event)">
-      <label for="confusion">1. Do you find traditional lab reports confusing?</label><br/>
-      <select id="confusion" required>
-        <option value="">--Select--</option>
-        <option value="yes">Yes</option>
-        <option value="no">No</option>
-        <option value="sometimes">Sometimes</option>
-      </select><br/><br/>
-
-      <label for="trustAI">2. Would you rely on AI-generated explanations of your health data?</label><br/>
-      <select id="trustAI" required>
-        <option value="">--Select--</option>
-        <option value="yes">Yes</option>
-        <option value="no">No</option>
-        <option value="maybe">Maybe</option>
-      </select><br/><br/>
-
-      <label for="visuals">3. Would you find value in visual tools like charts, alerts, or trends over time?</label><br/>
-      <select id="visuals" required>
-        <option value="">--Select--</option>
-        <option value="yes">Yes</option>
-        <option value="no">No</option>
-        <option value="maybe">Maybe</option>
-      </select><br/><br/>
-
-      <button type="submit">Submit Feedback</button>
-    </form>
-    <p class="confirmation" id="surveyConfirmation">Thanks for your feedback!</p>
+    <p>Please fill out our quick survey to help us shape Bloodwise to your needs:</p>
+    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdR4om0oXqzkE1okkwDRoYOj6Lv1OSWYZ6OGpT1rHPQWlHM7A/viewform?embedded=true" width="100%" height="1000px">Loading…</iframe>
   </section>
 
   <footer>
@@ -213,19 +206,8 @@
         document.getElementById('signupConfirmation').style.display = 'block';
       }
     }
-
-    function handleSurvey(e) {
-      e.preventDefault();
-      const response = {
-        confusion: document.getElementById('confusion').value,
-        trustAI: document.getElementById('trustAI').value,
-        visuals: document.getElementById('visuals').value
-      };
-      console.log("Survey response:", response);
-      document.getElementById('surveyForm').style.display = 'none';
-      document.getElementById('surveyConfirmation').style.display = 'block';
-    }
   </script>
 
 </body>
 </html>
+
